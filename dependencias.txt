@@ -1,0 +1,4 @@
+npm install express sequelize pg pg-hstore body-parser dotenv cors
+
+
+se inicia assim o servidor: node index

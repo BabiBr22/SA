@@ -1,0 +1,126 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.header {
+  width: 100%;
+  height: 60px; /* Altura do header */
+  background-color: black; /* Cor do header */
+  display: flex;
+  align-items: center; /* Centraliza verticalmente */
+  padding: 0 20px; /* Adiciona espaçamento nas laterais */
+  position: fixed; /* Faz o header ficar fixo na parte superior */
+  top: 0; /* Fica sempre no topo */
+  left: 0; /* Garante que comece na borda esquerda */
+  z-index: 1000; /* Garante que o header fique acima de outros elementos */
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza o conteúdo na horizontal */
+  position: relative;
+  margin-top: 60px; /* Espaço abaixo do header para evitar sobreposição */
+}
+
+.menu-icon {
+  font-size: 24px; /* Tamanho do ícone do menu */
+  color: white; /* Cor do ícone */
+  cursor: pointer; /* Cursor em forma de ponteiro */
+}
+
+.sidebar {
+  position: fixed; /* Mantém a sidebar fixa na tela */
+  top: 60px; /* Abaixo do header */
+  left: -250px; /* Escondido inicialmente */
+  width: 250px; /* Largura da sidebar */
+  height: calc(100% - 60px); /* Altura da sidebar (100% da tela menos a altura do header) */
+  background-color: orange; /* Cor da sidebar */
+  transition: left 0.3s ease; /* Animação para abrir e fechar */
+  z-index: 999; /* Garante que a sidebar fique acima do conteúdo */
+}
+
+.sidebar.open {
+  left: 0; /* Mova para a posição visível */
+}
+
+.sidebar-content {
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none; /* Remove os marcadores da lista */
+}
+
+.sidebar li {
+  margin-bottom: 10px; /* Espaço entre os itens da lista */
+  color: black; /* Cor do texto dos itens do menu */
+  background-color: orange; /* Cor de fundo padrão para os itens do menu */
+  cursor: pointer; /* Cursor em forma de ponteiro ao passar o mouse */
+  padding: 10px; /* Espaçamento interno para aumentar a área clicável */
+  transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+
+.sidebar li:hover {
+  background-color: darkorange; /* Cor de fundo ao passar o mouse sobre os itens do menu */
+}
+
+.image-container {
+  overflow: hidden; /* Impede que a imagem transborde */
+}
+
+.image-container img {
+  width: 100vw; /* A imagem ocupa 100% da largura da viewport */
+  height: auto; /* Altura automática para manter a proporção */
+  max-height: 300px; /* Defina uma altura máxima, se desejar */
+  object-fit: cover; /* Faz a imagem cobrir o contêiner, mantendo a proporção */
+}
+
+.content {
+  padding: 20px; /* Adiciona espaço para o conteúdo */
+}
+
+.cards-container {
+  display: flex; /* Usando flexbox para organizar os cartões */
+  justify-content: center; /* Centraliza os cartões horizontalmente */
+  flex-wrap: wrap; /* Permite que os cartões quebrem para a linha de baixo se necessário */
+  gap: 20px; /* Espaço entre os cartões */
+  margin-top: 20px; /* Espaço acima dos cartões */
+}
+
+.card {
+  background-color: white; /* Cor do cartão */
+  border: 1px solid #ccc; /* Borda do cartão */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 20px; /* Espaço interno do cartão */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra do cartão */
+  text-align: center; /* Centraliza o texto */
+  min-width: 220px; /* Largura mínima do cartão */
+  max-width: 220px; /* Largura máxima do cartão, para garantir a uniformidade */
+  height: 100px; /* Ajuste esse valor conforme necessário para garantir que todos os cards fiquem uniformes */
+}
+
+.profile-container {
+  display: flex;
+  align-items: center; /* Alinha o ícone do perfil e o nome verticalmente */
+  margin-left: auto; /* Empurra para a direita */
+}
+
+.profile-picture {
+  width: 40px; /* Largura do círculo do perfil */
+  height: 40px; /* Altura do círculo do perfil */
+  border-radius: 50%; /* Deixa a imagem em formato de círculo */
+  margin-right: 8px; /* Espaço entre a imagem e o nome */
+}
+
+.username {
+  color: white; /* Cor do texto do nome do usuário */
+  font-size: 16px; /* Tamanho da fonte do nome */
+}
