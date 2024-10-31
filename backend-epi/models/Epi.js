@@ -1,25 +1,20 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../index'); // Importando a instância do Sequelize do seu index.js
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../db'); // Importando a conexão do Sequelize
 
-const Epi = sequelize.define('Epi', {
+class EPI extends Model {}
+
+EPI.init({
   nome: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  categoria: {
+  descricao: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  quantidade: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  validade: {
-    type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
   },
 }, {
-  tableName: 'epis', // Nome da tabela no banco de dados
+  sequelize,
+  modelName: 'EPI',
 });
 
-module.exports = Epi;
+module.exports = EPI;

@@ -10,14 +10,16 @@ const Funcionario = sequelize.define('Funcionario', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  departamento: {
+  identificacao: {
     type: DataTypes.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+    unique: true
+  },
 }, {
   tableName: 'funcionarios'
 });
 
+// Sincroniza o modelo com o banco de dados
 Funcionario.sync({ force: false });
 
 module.exports = Funcionario;

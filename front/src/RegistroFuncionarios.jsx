@@ -1,26 +1,45 @@
-// src/RegistroFuncionarios.jsx
 import React, { useState } from 'react';
-import './RegistroFuncionarios.css'; // Adicione o estilo específico para o registro de funcionários
+import axios from 'axios';
+import './RegistroFuncionarios.css';
 
 const RegistroFuncionarios = ({ setCurrentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [employeeName, setEmployeeName] = useState('');
   const [position, setPosition] = useState('');
   const [employeeId, setEmployeeId] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleRegisterEmployee = (e) => {
-    e.preventDefault(); // Impede o recarregamento da página
-    // Aqui você pode adicionar a lógica para registrar o funcionário, como enviar para a API
+  const handleRegisterEmployee = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    setIsSubmitting(true);
+
     if (employeeName.trim() && position.trim() && employeeId.trim()) {
-      console.log('Funcionário Registrado:', { employeeName, position, employeeId });
-      // Limpa os campos de entrada após o envio
-      setEmployeeName('');
-      setPosition('');
-      setEmployeeId('');
+      try {
+        const response = await axios.post('http://localhost:4000/funcionarios', {
+          nome: employeeName,
+          cargo: position,
+          identificacao: employeeId,
+        });
+        console.log('Funcionário Registrado:', response.data);
+        setSuccess('Funcionário registrado com sucesso!');
+
+        setEmployeeName('');
+        setPosition('');
+        setEmployeeId('');
+      } catch (error) {
+        console.error('Erro ao registrar funcionário:', error.response.data);
+        setError('Erro ao registrar funcionário: ' + error.response.data.error);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -54,8 +73,10 @@ const RegistroFuncionarios = ({ setCurrentPage }) => {
       </div>
       
       <div className="content">
-        <div className="form-container"> {/* Div cinza para os campos de registro */}
+        <div className="form-container">
           <h1>Registro de Funcionários</h1>
+          {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
           <form onSubmit={handleRegisterEmployee}>
             <div className="form-group">
               <input 
@@ -82,7 +103,9 @@ const RegistroFuncionarios = ({ setCurrentPage }) => {
                 className="employee-input"
                 required 
               />
-              <button type="submit" className="register-button">Registrar Funcionário</button>
+              <button type="submit" className="register-button" disabled={isSubmitting}>
+                {isSubmitting ? 'Registrando...' : 'Registrar Funcionário'}
+              </button>
             </div>
           </form>
         </div>

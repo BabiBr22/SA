@@ -1,5 +1,6 @@
 // src/RegistroEPIs.jsx
 import React, { useState } from 'react';
+import axios from 'axios'; // Importe o axios se decidir usar
 import './RegistroEPIs.css'; // Adicione o estilo específico para o registro de EPIs
 
 const RegistroEPIs = ({ setCurrentPage }) => {
@@ -12,15 +13,26 @@ const RegistroEPIs = ({ setCurrentPage }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleRegisterEPI = (e) => {
+  const handleRegisterEPI = async (e) => {
     e.preventDefault(); // Impede o recarregamento da página
     // Aqui você pode adicionar a lógica para registrar o EPI, como enviar para a API
     if (epiName.trim() && epiCode.trim() && quantity.trim()) {
-      console.log('EPI Registrado:', { epiName, epiCode, quantity });
-      // Limpa os campos de entrada após o envio
-      setEpiName('');
-      setEpiCode('');
-      setQuantity('');
+      try {
+        // Envie os dados do EPI para a API
+        const response = await axios.post('http://localhost:4000/epis', {
+          nome: epiName,
+          codigo: epiCode,
+          quantidade: quantity
+        });
+        console.log('EPI Registrado:', response.data); 
+        
+        // Limpa os campos de entrada após o envio
+        setEpiName('');
+        setEpiCode('');
+        setQuantity('');
+      } catch (error) {
+        console.error('Erro ao registrar EPI:', error.response.data);
+      }
     }
   };
 
