@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 });
 
 // Sincronizar modelos com o banco de dados
-sequelize.sync()
+sequelize.sync({ force: true }) // Use com cuidado, isso recria as tabelas
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);

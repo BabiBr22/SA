@@ -6,7 +6,7 @@ const RegistroFuncionarios = ({ setCurrentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [employeeName, setEmployeeName] = useState('');
   const [position, setPosition] = useState('');
-  const [employeeId, setEmployeeId] = useState('');
+  const [employeeId, setEmployeeId] = useState(''); // Identificação do funcionário
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,20 +26,24 @@ const RegistroFuncionarios = ({ setCurrentPage }) => {
         const response = await axios.post('http://localhost:4000/funcionarios', {
           nome: employeeName,
           cargo: position,
-          identificacao: employeeId,
+          identificacao: employeeId, // Corrigido para o campo correto
         });
         console.log('Funcionário Registrado:', response.data);
         setSuccess('Funcionário registrado com sucesso!');
 
+        // Limpar campos após o registro
         setEmployeeName('');
         setPosition('');
         setEmployeeId('');
       } catch (error) {
-        console.error('Erro ao registrar funcionário:', error.response.data);
-        setError('Erro ao registrar funcionário: ' + error.response.data.error);
+        console.error('Erro ao registrar funcionário:', error.response?.data);
+        setError('Erro ao registrar funcionário: ' + (error.response?.data?.error || 'Erro desconhecido'));
       } finally {
         setIsSubmitting(false);
       }
+    } else {
+      setError('Por favor, preencha todos os campos.');
+      setIsSubmitting(false);
     }
   };
 

@@ -1,25 +1,30 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../db');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../db'); // Ajuste o caminho conforme necessário
 
-const Funcionario = sequelize.define('Funcionario', {
+class Funcionario extends Model {}
+
+Funcionario.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   nome: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   cargo: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   identificacao: {
     type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
+    allowNull: false, // Mantenha como false se este campo for obrigatório
   },
 }, {
-  tableName: 'funcionarios'
+  sequelize,
+  modelName: 'Funcionario',
+  tableName: 'funcionarios',
 });
-
-// Sincroniza o modelo com o banco de dados
-Funcionario.sync({ force: false });
 
 module.exports = Funcionario;
