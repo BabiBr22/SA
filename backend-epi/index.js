@@ -5,6 +5,7 @@ const epiRoutes = require('./routes/epi');
 const funcionarioRoutes = require('./routes/funcionario');
 const retiradaRoutes = require('./routes/retirada');
 const devolucaoRoutes = require('./routes/devolucao');
+const usuarioRoutes = require('./routes/usuario'); // Adicionando rotas de usuários
 const sequelize = require('./db'); // Importando a conexão com o banco
 
 const app = express();
@@ -19,6 +20,9 @@ app.use('/epis', epiRoutes);
 app.use('/funcionarios', funcionarioRoutes);
 app.use('/retiradas', retiradaRoutes);
 app.use('/devolucoes', devolucaoRoutes);
+app.use('/usuarios', usuarioRoutes); // Usando rotas de usuários
+app.use('/usuarios', usuarioRoutes); // Usando rotas de usuários
+
 
 // Rota padrão
 app.get('/', (req, res) => {
