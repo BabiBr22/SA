@@ -6,3 +6,5 @@ se inicia assim o servidor: node index
 
 
 npm install bcrypt jsonwebtoken
+
+npm install nodemon --save-dev

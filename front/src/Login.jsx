@@ -15,21 +15,23 @@ const Login = ({ onLogin }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, senha: password }), // O corpo está correto
+        body: JSON.stringify({ email, password }), // Correto: 'password'
       });
+
+      console.log('Response:', response);
 
       if (response.ok) {
         const data = await response.json();
         console.log('Login bem-sucedido:', data);
-        // Aqui você pode armazenar o token, se necessário
         onLogin(); // Chama a função onLogin ao fazer login
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.error); // Exibe a mensagem de erro
+        console.log('Error Data:', errorData);
+        setErrorMessage(errorData.error || 'Erro desconhecido'); // Exibe a mensagem de erro
       }
     } catch (error) {
       console.error('Erro ao realizar login:', error);
-      setErrorMessage('Erro ao realizar login');
+      setErrorMessage('Erro ao realizar login'); // Exibe mensagem de erro genérica
     }
   };
 

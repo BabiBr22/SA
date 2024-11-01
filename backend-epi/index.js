@@ -21,8 +21,6 @@ app.use('/funcionarios', funcionarioRoutes);
 app.use('/retiradas', retiradaRoutes);
 app.use('/devolucoes', devolucaoRoutes);
 app.use('/usuarios', usuarioRoutes); // Usando rotas de usuários
-app.use('/usuarios', usuarioRoutes); // Usando rotas de usuários
-
 
 // Rota padrão
 app.get('/', (req, res) => {

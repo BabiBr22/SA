@@ -10,14 +10,33 @@ class Usuario extends Model {
 }
 
 Usuario.init({
-  email: { // Altera 'nome' para 'email'
+  email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true // Adiciona a restrição de unicidade para o email
+    unique: {
+      msg: 'O email deve ser único.' // Mensagem de erro personalizada
+    },
+    validate: {
+      isEmail: {
+        msg: 'Email inválido.' // Mensagem de erro se o email não for válido
+      },
+      notEmpty: {
+        msg: 'O email não pode estar vazio.' // Mensagem de erro se o campo estiver vazio
+      }
+    }
   },
   senha: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: 'A senha não pode estar vazia.' // Mensagem de erro se o campo estiver vazio
+      },
+      len: {
+        args: [6, 100], // Validação para a senha ter entre 6 e 100 caracteres
+        msg: 'A senha deve ter entre 6 e 100 caracteres.'
+      }
+    }
   }
 }, {
   sequelize,
