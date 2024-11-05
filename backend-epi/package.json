@@ -8,7 +8,7 @@
     "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",npm run dev
+  "author": "",
 
   "license": "ISC",
   "dependencies": {
