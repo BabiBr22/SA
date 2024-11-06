@@ -8,36 +8,46 @@ const RegistroEPIs = ({ setCurrentPage }) => {
   const [epiName, setEpiName] = useState('');
   const [epiCode, setEpiCode] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');  // Mensagem de resposta da API
 
+  // Função para alternar o menu lateral
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Função para registrar o EPI
   const handleRegisterEPI = async (e) => {
     e.preventDefault(); // Impede o recarregamento da página
-    // Aqui você pode adicionar a lógica para registrar o EPI, como enviar para a API
     if (epiName.trim() && epiCode.trim() && quantity.trim()) {
       try {
-        // Envie os dados do EPI para a API
+        // Enviar os dados para a API
         const response = await axios.post('http://localhost:4000/epis', {
           nome: epiName,
           codigo: epiCode,
           quantidade: quantity
         });
+        
+        // Exibe uma mensagem de sucesso caso a criação seja bem-sucedida
+        setResponseMessage('EPI registrado com sucesso!');
         console.log('EPI Registrado:', response.data); 
         
-        // Limpa os campos de entrada após o envio
+        // Limpa os campos após o envio
         setEpiName('');
         setEpiCode('');
         setQuantity('');
       } catch (error) {
-        console.error('Erro ao registrar EPI:', error.response.data);
+        // Exibe um erro caso ocorra algum problema com a API
+        setResponseMessage('Erro ao registrar EPI.');
+        console.error('Erro ao registrar EPI:', error.response ? error.response.data : error.message);
       }
+    } else {
+      setResponseMessage('Por favor, preencha todos os campos.');
     }
   };
 
   return (
     <div>
+      {/* Header com foto de usuário e menu */}
       <header className="header">
         <div className="menu-icon" onClick={toggleMenu}>
           &#9776;
@@ -52,6 +62,7 @@ const RegistroEPIs = ({ setCurrentPage }) => {
         </div>
       </header>
       
+      {/* Menu lateral */}
       <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
         <div className="sidebar-content">
           <h3>Menu</h3>
@@ -65,8 +76,9 @@ const RegistroEPIs = ({ setCurrentPage }) => {
         </div>
       </div>
       
+      {/* Conteúdo principal */}
       <div className="content">
-        <div className="form-container"> {/* Div cinza para os campos de registro */}
+        <div className="form-container"> {/* Div cinza para os campos de registro */} 
           <h1>Registro de EPIs</h1>
           <form onSubmit={handleRegisterEPI}>
             <div className="form-group">
@@ -97,6 +109,9 @@ const RegistroEPIs = ({ setCurrentPage }) => {
               <button type="submit" className="register-button">Registrar EPI</button>
             </div>
           </form>
+
+          {/* Exibe a mensagem de resposta da API */}
+          {responseMessage && <p className="response-message">{responseMessage}</p>}
         </div>
       </div>
     </div>

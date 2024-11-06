@@ -1,10 +1,4 @@
 npm install express sequelize pg pg-hstore body-parser dotenv cors
 
-npm i axios
 
 se inicia assim o servidor: node index
-
-
-npm install bcrypt jsonwebtoken
-
-npm install nodemon --save-dev

@@ -1,8 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const Usuario = require('../models/Usuario');
 const router = express.Router();
+
+
+const {
+  login, usuario
+} = require('../controller/usuario')
 
 // Função para criar usuários fixos
 const criarUsuariosFixos = async () => {
@@ -16,11 +20,14 @@ const criarUsuariosFixos = async () => {
 
   for (const usuario of usuariosFixos) {
     const senhaHash = await bcrypt.hash(usuario.senha, 10);
-    const [usuarioCriado, criado] = await Usuario.findOrCreate({
+    
+    // Tenta encontrar ou criar o usuário
+    const [usuarioCriado, criado] = await Usuario.findOrCreate({ 
       where: { email: usuario.email },
       defaults: { senha: senhaHash }
     });
 
+    // Se o usuário já existia, podemos optar por ignorar ou logar
     if (!criado) {
       console.log(`Usuário ${usuario.email} já existe.`);
     }
@@ -28,29 +35,9 @@ const criarUsuariosFixos = async () => {
 };
 
 // Rota de login
-router.post('/login', async (req, res) => {
-  const { email, senha } = req.body;
+router.post('/login', login )
 
-  try {
-    const usuario = await Usuario.findOne({ where: { email } });
+// Rota para inicializar usuários fixos (opcional)
+router.post('/create', usuario )
 
-    if (!usuario) {
-      return res.status(404).json({ error: 'Usuário não encontrado' });
-    }
-
-    const senhaValida = await bcrypt.compare(senha, usuario.senha);
-    if (!senhaValida) {
-      return res.status(401).json({ error: 'Senha incorreta' });
-    }
-
-    const token = jwt.sign({ id: usuario.id }, 'seu-segredo-jwt', { expiresIn: '1h' });
-    res.json({ token });
-  } catch (error) {
-    res.status(500).json({ error: 'Erro ao realizar login' });
-  }
-});
-
-module.exports = {
-  router,
-  criarUsuariosFixos,
-};
+module.exports = router;

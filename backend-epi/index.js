@@ -5,9 +5,7 @@ const epiRoutes = require('./routes/epi');
 const funcionarioRoutes = require('./routes/funcionario');
 const retiradaRoutes = require('./routes/retirada');
 const devolucaoRoutes = require('./routes/devolucao');
-const usuarioRoutes = require('./routes/usuario');
-const sequelize = require('./db');
-const criarUsuariosFixos = require('./routes/usuario').criarUsuariosFixos;
+const sequelize = require('./db'); // Importando a conexão com o banco
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -21,7 +19,6 @@ app.use('/epis', epiRoutes);
 app.use('/funcionarios', funcionarioRoutes);
 app.use('/retiradas', retiradaRoutes);
 app.use('/devolucoes', devolucaoRoutes);
-app.use('/usuarios', usuarioRoutes);
 
 // Rota padrão
 app.get('/', (req, res) => {
@@ -29,9 +26,8 @@ app.get('/', (req, res) => {
 });
 
 // Sincronizar modelos com o banco de dados
-sequelize.sync({ force: true })
-  .then(async () => {
-    await criarUsuariosFixos(); // Cria usuários fixos ao iniciar
+sequelize.sync({ force: true }) // Use com cuidado, isso recria as tabelas
+  .then(() => {
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);
     });

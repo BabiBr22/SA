@@ -1,4 +1,3 @@
-// src/Home.jsx
 import React, { useState } from 'react';
 import './Home.css';
 
@@ -7,6 +6,11 @@ const Home = ({ setCurrentPage }) => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleMenuItemClick = (page) => {
+    setCurrentPage(page);
+    setIsMenuOpen(false);  // Fecha o menu após clicar em um item
   };
 
   return (
@@ -28,11 +32,11 @@ const Home = ({ setCurrentPage }) => {
         <div className="sidebar-content">
           <h3>Menu</h3>
           <ul>
-            <li onClick={() => setCurrentPage('home')}>Home</li>
-            <li onClick={() => setCurrentPage('historico')}>Histórico de EPIs</li>
-            <li onClick={() => setCurrentPage('historicoFuncionarios')}>Histórico de Funcionários</li>
-            <li onClick={() => setCurrentPage('registroEPIs')}>Registro de EPIs</li>
-            <li onClick={() => setCurrentPage('registroFuncionarios')}>Registro de Funcionários</li> {/* Novo item no menu */}
+            <li onClick={() => handleMenuItemClick('home')}>Home</li>
+            <li onClick={() => handleMenuItemClick('historico')}>Histórico de EPIs</li>
+            <li onClick={() => handleMenuItemClick('historicoFuncionarios')}>Histórico de Funcionários</li>
+            <li onClick={() => handleMenuItemClick('registroEPIs')}>Registro de EPIs</li>
+            <li onClick={() => handleMenuItemClick('registroFuncionarios')}>Registro de Funcionários</li>
           </ul>
         </div>
       </div>
@@ -44,16 +48,16 @@ const Home = ({ setCurrentPage }) => {
       </div>
       <div className="content">
         <div className="cards-container">
-          <div className="card" onClick={() => setCurrentPage('historico')}>
+          <div className="card" onClick={() => handleMenuItemClick('historico')}>
             <h3>Histórico de EPIs</h3>
           </div>
-          <div className="card" onClick={() => setCurrentPage('historicoFuncionarios')}>
+          <div className="card" onClick={() => handleMenuItemClick('historicoFuncionarios')}>
             <h3>Histórico de Funcionários</h3>
           </div>
-          <div className="card" onClick={() => setCurrentPage('registroEPIs')}>
+          <div className="card" onClick={() => handleMenuItemClick('registroEPIs')}>
             <h3>Registro de EPIs</h3>
           </div>
-          <div className="card" onClick={() => setCurrentPage('registroFuncionarios')}>
+          <div className="card" onClick={() => handleMenuItemClick('registroFuncionarios')}>
             <h3>Registro de Funcionários</h3>
           </div>
         </div>
