@@ -1,47 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import './HistoricoEPIs.css';
+import axios from "axios"
 
 const HistoricoEPIs = ({ setCurrentPage }) => {
   const [epIs, setEpIs] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true); // Carregando dados
 
-  // Buscar os dados dos EPIs
-  useEffect(() => {
-    const fetchEPIs = async () => {
-      try {
-        const response = await fetch('/api/epis/historico');
-        if (!response.ok) {
-          throw new Error('Erro ao carregar dados');
-        }
-        const data = await response.json();
-        setEpIs(data);
-      } catch (error) {
-        console.error('Erro ao buscar EPIs:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchEPIs();
-  }, []);
+  const pegar_data = async () => {
+    const res = await axios.get("http://localhost:4000/epis/atribuirEpis")
+    console.log(res.data)
+    setEpIs(res.data)
+  }
+
+  useEffect(() => {pegar_data()}, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handleSearch = () => {
-    // Implementar lógica de busca (filtragem de EPIs)
     const filtered = epIs.filter((epi) =>
       epi.nome.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setEpIs(filtered);
   };
 
-  if (loading) {
-    return <div>Carregando...</div>; // Exibe um texto de loading enquanto os dados são buscados
-  }
 
   return (
     <div>
@@ -94,7 +79,7 @@ const HistoricoEPIs = ({ setCurrentPage }) => {
               </tr>
             </thead>
             <tbody>
-              {epIs.length > 0 ? (
+              {epIs?.length > 0 ? (
                 epIs.map((epi) => (
                   <tr key={epi.id}>
                     <td>{epi.id}</td>

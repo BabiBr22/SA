@@ -15,35 +15,33 @@ const RegistroEPIs = ({ setCurrentPage }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Função para registrar o EPI
-  const handleRegisterEPI = async (e) => {
-    e.preventDefault(); // Impede o recarregamento da página
-    if (epiName.trim() && epiCode.trim() && quantity.trim()) {
-      try {
-        // Enviar os dados para a API
-        const response = await axios.post('http://localhost:4000/epis', {
-          nome: epiName,
-          codigo: epiCode,
-          quantidade: quantity
-        });
-        
-        // Exibe uma mensagem de sucesso caso a criação seja bem-sucedida
-        setResponseMessage('EPI registrado com sucesso!');
-        console.log('EPI Registrado:', response.data); 
-        
-        // Limpa os campos após o envio
-        setEpiName('');
-        setEpiCode('');
-        setQuantity('');
-      } catch (error) {
-        // Exibe um erro caso ocorra algum problema com a API
-        setResponseMessage('Erro ao registrar EPI.');
-        console.error('Erro ao registrar EPI:', error.response ? error.response.data : error.message);
+  const handleRegisterEPI = async () => {
+    try {
+
+      const data = {
+        nome: epiName.trim(),
+        codigo: epiCode.trim(),
+        quantidade: quantity
       }
-    } else {
-      setResponseMessage('Por favor, preencha todos os campos.');
+
+      console.log(data)
+      
+      const response = await axios.post('http://localhost:4000/epis', data);
+
+      // Exibe uma mensagem de sucesso caso a criação seja bem-sucedida
+      setResponseMessage('EPI registrado com sucesso!');
+      console.log('EPI Registrado:', response.data);
+
+      // Limpa os campos após o envio
+      setEpiName('');
+      setEpiCode('');
+      setQuantity('');
+    } catch (error) {
+      // Exibe um erro caso ocorra algum problema com a API
+      setResponseMessage('Erro ao registrar EPI.');
+      console.error('Erro ao registrar EPI:', error.response ? error.response.data : error.message);
     }
-  };
+  }
 
   return (
     <div>
@@ -53,15 +51,15 @@ const RegistroEPIs = ({ setCurrentPage }) => {
           &#9776;
         </div>
         <div className="user-photo">
-          <img 
-            src="https://img.freepik.com/fotos-gratis/fundo_53876-32175.jpg" 
-            alt="Perfil" 
-            className="profile-picture" 
+          <img
+            src="https://img.freepik.com/fotos-gratis/fundo_53876-32175.jpg"
+            alt="Perfil"
+            className="profile-picture"
           />
           <span className="username">Nome do Usuário</span>
         </div>
       </header>
-      
+
       {/* Menu lateral */}
       <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
         <div className="sidebar-content">
@@ -75,40 +73,40 @@ const RegistroEPIs = ({ setCurrentPage }) => {
           </ul>
         </div>
       </div>
-      
+
       {/* Conteúdo principal */}
       <div className="content">
-        <div className="form-container"> {/* Div cinza para os campos de registro */} 
+        <div className="form-container"> {/* Div cinza para os campos de registro */}
           <h1>Registro de EPIs</h1>
-          <form onSubmit={handleRegisterEPI}>
+          <div>
             <div className="form-group">
-              <input 
-                type="text" 
-                value={epiName} 
-                onChange={(e) => setEpiName(e.target.value)} 
-                placeholder="Nome do EPI" 
+              <input
+                type="text"
+                value={epiName}
+                onChange={(e) => setEpiName(e.target.value)}
+                placeholder="Nome do EPI"
                 className="epi-input"
-                required 
+                required
               />
-              <input 
-                type="text" 
-                value={epiCode} 
-                onChange={(e) => setEpiCode(e.target.value)} 
-                placeholder="Código do EPI" 
+              <input
+                type="text"
+                value={epiCode}
+                onChange={(e) => setEpiCode(e.target.value)}
+                placeholder="Código do EPI"
                 className="epi-input"
-                required 
+                required
               />
-              <input 
-                type="number" 
-                value={quantity} 
-                onChange={(e) => setQuantity(e.target.value)} 
-                placeholder="Quantidade" 
+              <input
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+                placeholder="Quantidade"
                 className="epi-input"
-                required 
+                required
               />
-              <button type="submit" className="register-button">Registrar EPI</button>
+              <button type="submit" className="register-button" onClick={() => handleRegisterEPI()}>Registrar EPI</button>
             </div>
-          </form>
+          </div>
 
           {/* Exibe a mensagem de resposta da API */}
           {responseMessage && <p className="response-message">{responseMessage}</p>}

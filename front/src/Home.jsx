@@ -1,3 +1,4 @@
+// src/Home.jsx
 import React, { useState } from 'react';
 import './Home.css';
 
@@ -37,6 +38,7 @@ const Home = ({ setCurrentPage }) => {
             <li onClick={() => handleMenuItemClick('historicoFuncionarios')}>Histórico de Funcionários</li>
             <li onClick={() => handleMenuItemClick('registroEPIs')}>Registro de EPIs</li>
             <li onClick={() => handleMenuItemClick('registroFuncionarios')}>Registro de Funcionários</li>
+            <li onClick={() => handleMenuItemClick('atribuirEPI')}>Atribuir EPI</li> {/* Nova opção no menu */}
           </ul>
         </div>
       </div>
@@ -59,6 +61,9 @@ const Home = ({ setCurrentPage }) => {
           </div>
           <div className="card" onClick={() => handleMenuItemClick('registroFuncionarios')}>
             <h3>Registro de Funcionários</h3>
+          </div>
+          <div className="card" onClick={() => handleMenuItemClick('atribuirEPI')}>
+            <h3>Atribuir EPI</h3> {/* Cartão para a nova página */}
           </div>
         </div>
       </div>

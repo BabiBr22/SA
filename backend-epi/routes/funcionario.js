@@ -12,7 +12,7 @@ router.post('/', cadastrarFuncionario )
 
 
 // Listar todos os funcionários
-router.get('/', listarFuncionarios );
+router.get('/sete', listarFuncionarios );
 
 
 module.exports = router;

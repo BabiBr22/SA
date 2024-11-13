@@ -1,40 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './HistoricoFuncionarios.css';
+import axios from "axios"
 
 const HistoricoFuncionarios = ({ setCurrentPage }) => {
   const [funcionarios, setFuncionarios] = useState([]);
   const [filteredFuncionarios, setFilteredFuncionarios] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true); // Carregando dados
+
+  const pegar_data = async () => {
+    const res = await axios.get("http://localhost:4000/funcionarios/sete")
+    console.log(res.data)
+    setFilteredFuncionarios(res.data)
+  }
 
   // Buscar os dados dos funcionários e EPIs
-  useEffect(() => {
-    const fetchFuncionarios = async () => {
-      try {
-        const response = await fetch('/epis/funcionarios/historico');
-        if (!response.ok) {
-          throw new Error('Erro ao carregar dados');
-        }
-
-        // Verifique se a resposta é JSON
-        const contentType = response.headers.get('Content-Type');
-        if (contentType && contentType.includes('application/json')) {
-          const data = await response.json();
-          setFuncionarios(data);
-          setFilteredFuncionarios(data); // Inicializa com todos os funcionários
-        } else {
-          throw new Error('Resposta não é JSON');
-        }
-      } catch (error) {
-        console.error('Erro ao buscar funcionários:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFuncionarios();
-  }, []);
+  useEffect(() => {pegar_data()}, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -48,9 +29,7 @@ const HistoricoFuncionarios = ({ setCurrentPage }) => {
     setFilteredFuncionarios(filtered);
   };
 
-  if (loading) {
-    return <div>Carregando...</div>; // Exibe um texto de loading enquanto os dados são buscados
-  }
+
 
   return (
     <div>

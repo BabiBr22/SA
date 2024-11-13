@@ -6,6 +6,7 @@ import HistoricoEPIs from './HistoricoEPIs';
 import HistoricoFuncionarios from './HistoricoFuncionarios'; // Importe o novo componente
 import RegistroEPIs from './RegistroEPIs'; // Importe o componente de Registro de EPIs
 import RegistroFuncionarios from './RegistroFuncionarios'; // Importe o componente de Registro de Funcionários
+import AtribuirEPI from './AtribuirEpis'; // Corrigido para 'AtribuirEPI' com 'E' maiúsculo
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,8 +26,10 @@ const App = () => {
         return <HistoricoFuncionarios setCurrentPage={setCurrentPage} />;
       case 'registroEPIs':
         return <RegistroEPIs setCurrentPage={setCurrentPage} />;
-      case 'registroFuncionarios': // Adicione esta linha
-        return <RegistroFuncionarios setCurrentPage={setCurrentPage} />; // Renderize o componente de Registro de Funcionários
+      case 'registroFuncionarios':
+        return <RegistroFuncionarios setCurrentPage={setCurrentPage} />; 
+      case 'atribuirEPI': // Corrigido para 'atribuirEPI'
+        return <AtribuirEPI setCurrentPage={setCurrentPage} />; 
       default:
         return <Home setCurrentPage={setCurrentPage} />;
     }

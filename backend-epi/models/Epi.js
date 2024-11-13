@@ -4,6 +4,11 @@ const sequelize = require('../db');
 class EPI extends Model {}
 
 EPI.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   nome: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -18,9 +23,8 @@ EPI.init({
   },
 }, {
   sequelize,
-  modelName: 'EPI', // Nome do modelo
-  tableName: 'epis', // Nome da tabela no banco de dados
-  underscored: true, // Usado para converter o nome das colunas para snake_case (se desejado)
+  modelName: 'EPI',
+  tableName: 'epis',
 });
 
 module.exports = EPI;

@@ -1,3 +1,4 @@
+// index.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -5,7 +6,11 @@ const epiRoutes = require('./routes/epi');
 const funcionarioRoutes = require('./routes/funcionario');
 const retiradaRoutes = require('./routes/retirada');
 const devolucaoRoutes = require('./routes/devolucao');
-const sequelize = require('./db'); // Importando a conexão com o banco
+const atribuirEpisRoutes = require('./routes/atribuirEpis');
+const sequelize = require('./db');
+
+// Importa as associações para garantir que as relações entre modelos sejam definidas
+require('./models/associations');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -19,6 +24,7 @@ app.use('/epis', epiRoutes);
 app.use('/funcionarios', funcionarioRoutes);
 app.use('/retiradas', retiradaRoutes);
 app.use('/devolucoes', devolucaoRoutes);
+app.use('/atribuirEpis', atribuirEpisRoutes);
 
 // Rota padrão
 app.get('/', (req, res) => {
@@ -26,7 +32,8 @@ app.get('/', (req, res) => {
 });
 
 // Sincronizar modelos com o banco de dados
-sequelize.sync({ force: true }) // Use com cuidado, isso recria as tabelas
+sequelize.sync() // Usa `alter` para ajustar a estrutura das tabelas sem recriá-las
+
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);
