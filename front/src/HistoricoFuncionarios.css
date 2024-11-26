@@ -112,3 +112,17 @@
         padding: 10px; /* Ajusta o padding da sidebar em telas pequenas */
     }
 }
+
+.delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  .delete-button:hover {
+    background-color: #e60000;
+  }
+  

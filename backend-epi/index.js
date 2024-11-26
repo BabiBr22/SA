@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
   res.send('API de Controle de EPIs');
 });
 
+
 // Sincronizar modelos com o banco de dados
 sequelize.sync() // Usa `alter` para ajustar a estrutura das tabelas sem recriá-las
 

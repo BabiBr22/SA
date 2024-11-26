@@ -1,38 +1,109 @@
 import React, { useState, useEffect } from 'react';
 import './HistoricoFuncionarios.css';
-import axios from "axios"
+import axios from 'axios';
 
 const HistoricoFuncionarios = ({ setCurrentPage }) => {
+  // Estados principais
   const [funcionarios, setFuncionarios] = useState([]);
   const [filteredFuncionarios, setFilteredFuncionarios] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [editingFuncionario, setEditingFuncionario] = useState(null);
+  const [formData, setFormData] = useState({
+    nome: '',
+    cargo: '',
+    identificacao: '',
+  });
 
-  const pegar_data = async () => {
-    const res = await axios.get("http://localhost:4000/funcionarios/sete")
-    console.log(res.data)
-    setFilteredFuncionarios(res.data)
-  }
-
-  // Buscar os dados dos funcionários e EPIs
-  useEffect(() => {pegar_data()}, []);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  // Função para buscar dados do backend
+  const fetchFuncionarios = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/funcionarios/');
+      setFuncionarios(response.data);
+      setFilteredFuncionarios(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar funcionários:', error);
+      alert('Erro ao carregar os dados.');
+    }
   };
 
+  // Carregar os dados ao montar o componente
+  useEffect(() => {
+    fetchFuncionarios();
+  }, []);
+
+  // Alternar o menu lateral
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // Atualizar o estado de busca
+  const handleSearchChange = (e) => setSearchTerm(e.target.value);
+
+  // Filtrar funcionários com base no termo de busca
   const handleSearch = () => {
-    // Filtragem dos funcionários com base no nome
-    const filtered = funcionarios.filter((funcionario) =>
-      funcionario.nome.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = funcionarios.filter((func) =>
+      func.nome.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredFuncionarios(filtered);
   };
 
+  // Excluir funcionário
+  const deleteFuncionario = async (id) => {
+    try {
+      await axios.delete(`http://localhost:4000/funcionarios/${id}`);
+      const updatedFuncionarios = funcionarios.filter((func) => func.id !== id);
+      setFuncionarios(updatedFuncionarios);
+      setFilteredFuncionarios(updatedFuncionarios);
+      alert('Funcionário excluído com sucesso.');
+    } catch (error) {
+      console.error('Erro ao excluir funcionário:', error);
+      alert('Erro ao excluir funcionário.');
+    }
+  };
 
+  // Iniciar a edição de um funcionário
+  const startEditing = (funcionario) => {
+    setEditingFuncionario(funcionario);
+    setFormData({
+      nome: funcionario.nome,
+      cargo: funcionario.cargo,
+      identificacao: funcionario.identificacao,
+    });
+  };
+
+  // Atualizar os dados do formulário
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  // Atualizar funcionário
+  const updateFuncionario = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedFuncionario = await axios.put(
+        `http://localhost:4000/funcionarios/${editingFuncionario.id}`,
+        formData
+      );
+
+      const updatedList = funcionarios.map((func) =>
+        func.id === editingFuncionario.id ? updatedFuncionario.data : func
+      );
+      setFuncionarios(updatedList);
+      setFilteredFuncionarios(updatedList);
+      setEditingFuncionario(null);
+      alert('Funcionário atualizado com sucesso.');
+    } catch (error) {
+      console.error('Erro ao atualizar funcionário:', error);
+      alert('Erro ao atualizar funcionário.');
+    }
+  };
+
+  // Cancelar a edição
+  const cancelEditing = () => setEditingFuncionario(null);
 
   return (
     <div>
+      {/* Cabeçalho */}
       <header className="header">
         <div className="menu-icon" onClick={toggleMenu}>
           &#9776;
@@ -47,7 +118,8 @@ const HistoricoFuncionarios = ({ setCurrentPage }) => {
         </div>
       </header>
 
-      <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
+      {/* Menu Lateral */}
+      <aside className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
         <ul>
           <li onClick={() => setCurrentPage('home')}>Home</li>
           <li onClick={() => setCurrentPage('historico')}>Histórico de EPIs</li>
@@ -55,14 +127,16 @@ const HistoricoFuncionarios = ({ setCurrentPage }) => {
           <li onClick={() => setCurrentPage('registroEPIs')}>Registro de EPIs</li>
           <li onClick={() => setCurrentPage('registroFuncionarios')}>Registro de Funcionários</li>
         </ul>
-      </div>
+      </aside>
 
-      <div className="content">
+      {/* Conteúdo Principal */}
+      <main className="content">
+        {/* Barra de Busca */}
         <div className="search-container">
           <input
             type="text"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearchChange}
             placeholder="Buscar funcionário..."
             className="search-input"
           />
@@ -71,6 +145,7 @@ const HistoricoFuncionarios = ({ setCurrentPage }) => {
           </button>
         </div>
 
+        {/* Tabela de Funcionários */}
         <div className="table-container">
           <table className="table">
             <thead>
@@ -78,36 +153,105 @@ const HistoricoFuncionarios = ({ setCurrentPage }) => {
                 <th>ID</th>
                 <th>Nome do Funcionário</th>
                 <th>EPIs Retirados</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
               {filteredFuncionarios.length > 0 ? (
-                filteredFuncionarios.map((funcionario) => (
-                  <tr key={funcionario.id}>
-                    <td>{funcionario.id}</td>
-                    <td>{funcionario.nome}</td>
+                filteredFuncionarios.map((func) => (
+                  <tr key={func.id}>
+                    <td>{func.id}</td>
+                    <td>{func.nome}</td>
                     <td>
-                      {funcionario.EPIs && funcionario.EPIs.length > 0 ? (
+                      {func.EPIs && func.EPIs.length > 0 ? (
                         <ul>
-                          {funcionario.EPIs.map((epi, index) => (
-                            <li key={index}>{epi.nome} - {epi.descricao}</li>
+                          {func.EPIs.map((epi, index) => (
+                            <li key={index}>
+                              {epi.nome} - {epi.descricao}
+                            </li>
                           ))}
                         </ul>
                       ) : (
                         <span>Sem EPIs</span>
                       )}
                     </td>
+                    <td>
+                      <button
+                        onClick={() => deleteFuncionario(func.id)}
+                        className="delete-button"
+                      >
+                        Excluir
+                      </button>
+                      <button
+                        onClick={() => startEditing(func)}
+                        className="edit-button"
+                      >
+                        Editar
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3">Nenhum funcionário encontrado.</td>
+                  <td colSpan="4">Nenhum funcionário encontrado.</td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
-      </div>
+      </main>
+
+      {/* Modal de Edição */}
+      {editingFuncionario && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Editar Funcionário</h2>
+            <form onSubmit={updateFuncionario}>
+              <div>
+                <label>Nome:</label>
+                <input
+                  type="text"
+                  name="nome"
+                  value={formData.nome}
+                  onChange={handleFormChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Cargo:</label>
+                <input
+                  type="text"
+                  name="cargo"
+                  value={formData.cargo}
+                  onChange={handleFormChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Identificação:</label>
+                <input
+                  type="text"
+                  name="identificacao"
+                  value={formData.identificacao}
+                  onChange={handleFormChange}
+                />
+              </div>
+              <div>
+                <button type="submit" className="submit-button">
+                  Atualizar
+                </button>
+                <button
+                  type="button"
+                  onClick={cancelEditing}
+                  className="cancel-button"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

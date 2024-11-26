@@ -1,4 +1,18 @@
+SERVIDOR 
+
 npm install express sequelize pg pg-hstore body-parser dotenv cors
 
 
 se inicia assim o servidor: node index
+
+
+vite
+
+npm install vite --save-dev
+
+
+CYPRESS
+
+npm install cypress --save-dev
+
+    para abrir o cypress:   npx cypress open

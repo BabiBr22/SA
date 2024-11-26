@@ -1,55 +1,67 @@
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .search-container {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    margin-bottom: 15px;
-  }
-  
-  .search-input {
-    padding: 8px;
-    font-size: 16px;
-    margin-right: 10px;
-  }
-  
-  .search-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .table-container {
-    width: 90%; /* Ligeira margem nas laterais */
-    background-color: #f8f8f8;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table th,
-  .table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  .table th {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .table tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.search-input {
+  padding: 8px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.search-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.table-container {
+  width: 90%; /* Ligeira margem nas laterais */
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.delete-button:hover {
+  background-color: #e60000;
+}
