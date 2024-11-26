@@ -176,18 +176,21 @@ const HistoricoFuncionarios = ({ setCurrentPage }) => {
                       )}
                     </td>
                     <td>
-                      <button
-                        onClick={() => deleteFuncionario(func.id)}
-                        className="delete-button"
-                      >
-                        Excluir
-                      </button>
-                      <button
+                      
+                    <button id='editar'
                         onClick={() => startEditing(func)}
                         className="edit-button"
                       >
                         Editar
                       </button>
+
+                      <button id='deletar'
+                        onClick={() => deleteFuncionario(func.id)}
+                        className="delete-button"
+                      >
+                        Excluir
+                      </button>
+                      
                     </td>
                   </tr>
                 ))

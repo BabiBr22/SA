@@ -155,13 +155,13 @@ const HistoricoEPIs = ({ setCurrentPage }) => {
                     <td>{epi.dataRetirada}</td>
                     <td>{epi.dataDevolucao}</td>
                     <td>
-                      <button
+                      <button id='editar'
                         onClick={() => handleEdit(epi)}
                         className="edit-button"
                       >
                         Editar
                       </button>
-                      <button
+                      <button id='deletar'
                         onClick={() => handleDelete(epi.id)}
                         className="delete-button"
                       >

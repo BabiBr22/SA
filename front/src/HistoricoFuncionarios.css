@@ -126,3 +126,12 @@
     background-color: #e60000;
   }
   
+
+  #editar{
+    background-color:#4CAF50;
+  }
+  
+  #deletar{
+    margin: 3px;
+    background-color: rgb(136, 6, 6);
+  }
