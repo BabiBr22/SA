@@ -13,6 +13,10 @@ npm install vite --save-dev
 
 CYPRESS
 
+npm install jest supertest
+
 npm install cypress --save-dev
 
     para abrir o cypress:   npx cypress open
+
+

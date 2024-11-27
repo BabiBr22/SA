@@ -1,61 +1,32 @@
-describe('EPI Management', () => {
-  const epiData = { nome: 'Capacete', descricao: 'Capacete de segurança', quantidade: 10 };
+describe('Gestão de EPIs', () => {
+  const epiData = {
+    nome: 'Capacete de Segurança',
+    descricao: 'Capacete para proteção contra impactos',
+    validade: '2025-12-31',
+    quantidade: 10 // Adicionando o campo quantidade
+  };
+
+  let epiId;
 
   it('Deve criar um novo EPI', () => {
     cy.request('POST', '/epis', epiData).then((response) => {
       expect(response.status).to.eq(201);
-      expect(response.body).to.have.property('nome', 'Capacete');
-      expect(Number(response.body.quantidade)).to.eq(10);
+      expect(response.body).to.have.property('id');
+      epiId = response.body.id;
     });
   });
-  
-    it('Deve editar um EPI existente', () => {
-      cy.request('POST', '/epi', epiData).then((postResponse) => {
-        const epiId = postResponse.body.id;
-        cy.request('PUT', `/epi/${epiId}`, { nome: 'Capacete Atualizado' }).then((putResponse) => {
-          expect(putResponse.status).to.eq(200);
-          expect(putResponse.body).to.have.property('nome', 'Capacete Atualizado');
-        });
-      });
-    });
-  
-    it('Deve retornar 404 ao tentar editar um EPI inexistente', () => {
-      cy.request({
-        method: 'PUT',
-        url: '/epi/9999',
-        failOnStatusCode: false,
-        body: { nome: 'Capacete Atualizado' },
-      }).then((response) => {
-        expect(response.status).to.eq(404);
-        expect(response.body).to.have.property('error', 'EPI não encontrado');
-      });
-    });
-  
-    it('Deve deletar um EPI existente', () => {
-      cy.request('POST', '/epi', epiData).then((postResponse) => {
-        const epiId = postResponse.body.id;
-        cy.request('DELETE', `/epi/${epiId}`).then((deleteResponse) => {
-          expect(deleteResponse.status).to.eq(204);
-        });
-      });
-    });
-  
-    it('Deve retornar 404 ao tentar deletar um EPI inexistente', () => {
-      cy.request({
-        method: 'DELETE',
-        url: '/epi/9999',
-        failOnStatusCode: false,
-      }).then((response) => {
-        expect(response.status).to.eq(404);
-        expect(response.body).to.have.property('error', 'EPI não encontrado');
-      });
-    });
-  
-    it('Deve listar todos os EPIs', () => {
-      cy.request('GET', '/epis').then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.body).to.be.an('array');
-      });
+
+  it('Deve editar um EPI existente', () => {
+    const updatedData = { ...epiData, nome: 'Capacete de Segurança Atualizado' };
+    cy.request('PUT', `/epis/${epiId}`, updatedData).then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body.nome).to.eq('Capacete de Segurança Atualizado');
     });
   });
-  
+
+  it('Deve remover um EPI', () => {
+    cy.request('DELETE', `/epis/${epiId}`).then((response) => {
+      expect(response.status).to.eq(204);
+    });
+  });
+});

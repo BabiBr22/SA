@@ -43,3 +43,5 @@ sequelize.sync() // Usa `alter` para ajustar a estrutura das tabelas sem recriá
   .catch(error => {
     console.error('Erro ao sincronizar o banco de dados:', error);
   });
+
+  module.exports = app;
