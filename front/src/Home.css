@@ -7,6 +7,7 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
+  
 }
 
 .header {
@@ -96,15 +97,17 @@ body {
 }
 
 .card {
-  background-color: white; /* Cor do cartão */
-  border: 1px solid #ccc; /* Borda do cartão */
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 20px; /* Espaço interno do cartão */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra do cartão */
-  text-align: center; /* Centraliza o texto */
-  min-width: 220px; /* Largura mínima do cartão */
-  max-width: 220px; /* Largura máxima do cartão, para garantir a uniformidade */
-  height: 100px; /* Ajuste esse valor conforme necessário para garantir que todos os cards fiquem uniformes */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  min-width: 220px;
+  max-width: 220px;
+  height: 100px;
+  cursor: pointer; /* Adiciona o cursor de ponteiro */
+  transition: transform 0.3s, box-shadow 0.3s; /* Adiciona animação ao passar o mouse */
 }
 
 .profile-container {
@@ -123,4 +126,11 @@ body {
 .username {
   color: white; /* Cor do texto do nome do usuário */
   font-size: 16px; /* Tamanho da fonte do nome */
+}
+
+
+
+.card:hover {
+  transform: scale(1.05); /* Aumenta ligeiramente o tamanho no hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Intensifica a sombra no hover */
 }

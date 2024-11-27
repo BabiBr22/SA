@@ -8,6 +8,9 @@ Funcionario.init({
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+    defaultValue: sequelize.literal(
+      "nextval ('seq_id')"
+    )
   },
   nome: {
     type: DataTypes.STRING,

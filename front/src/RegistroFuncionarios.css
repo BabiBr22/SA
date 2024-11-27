@@ -24,7 +24,7 @@
   }
   
   .register-button {
-    background-color: #4CAF50; /* Cor do botão */
+    background-color:  orange;
     color: white;
     padding: 10px;
     border: none;
@@ -33,11 +33,11 @@
   }
   
   .register-button:hover {
-    background-color: #45a049; /* Efeito ao passar o mouse */
+    background-color:  orange;
   }
   
   .success-message {
-    color: green;
+    background-color:  orange;
     font-weight: bold;
     margin-top: 10px;
   }
@@ -47,4 +47,5 @@
     font-weight: bold;
     margin-top: 10px;
   }
+  
   
