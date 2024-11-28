@@ -44,7 +44,7 @@ const Home = ({ setCurrentPage }) => {
       </div>
       <div className="image-container">
         <img 
-          src="https://img.freepik.com/fotos-premium/quadro-retangular-quadro-de-madeira-antigo-estilo-vintage-com-vazio-e-isolado_545033-2817.jpg?semt=ais_hybrid" 
+          src="" 
           alt="Descrição" 
         />
       </div>

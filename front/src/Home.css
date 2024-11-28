@@ -28,7 +28,7 @@ body {
   flex-direction: column;
   align-items: center; /* Centraliza o conteúdo na horizontal */
   position: relative;
-  margin-top: 60px; /* Espaço abaixo do header para evitar sobreposição */
+  margin-top: 60px; /* Ajuste do espaço abaixo do header */
 }
 
 .menu-icon {
@@ -74,18 +74,27 @@ body {
 }
 
 .image-container {
-  overflow: hidden; /* Impede que a imagem transborde */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px; /* Ajuste a altura da imagem para que ela não suba */
+  overflow: hidden; /* Esconde qualquer parte da imagem que ultrapasse o contêiner */
+  margin-top: 120px; /* Pequeno espaço entre o header e a imagem */
+
 }
 
 .image-container img {
-  width: 100vw; /* A imagem ocupa 100% da largura da viewport */
-  height: auto; /* Altura automática para manter a proporção */
-  max-height: 300px; /* Defina uma altura máxima, se desejar */
-  object-fit: cover; /* Faz a imagem cobrir o contêiner, mantendo a proporção */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem cubra todo o contêiner */
+  content: url('home.png');
+
 }
 
 .content {
-  padding: 20px; /* Adiciona espaço para o conteúdo */
+  padding: 20px; /* Espaço interno para o conteúdo */
+  margin-top: -200px; /* Remova o espaçamento superior se necessário */
 }
 
 .cards-container {
@@ -93,12 +102,13 @@ body {
   justify-content: center; /* Centraliza os cartões horizontalmente */
   flex-wrap: wrap; /* Permite que os cartões quebrem para a linha de baixo se necessário */
   gap: 20px; /* Espaço entre os cartões */
-  margin-top: 20px; /* Espaço acima dos cartões */
+  margin-top: 10px; /* Espaço acima dos cartões */
 }
 
+
 .card {
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: rgba(167, 167, 167, 0.562);
+  border: 1px solid #050505;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
