@@ -153,53 +153,57 @@ const HistoricoFuncionarios = ({ setCurrentPage }) => {
                 <th>ID</th>
                 <th>Nome do Funcionário</th>
                 <th>EPIs Retirados</th>
+                <th>Data de Retirada</th>
+                <th>Data de Devolução</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {filteredFuncionarios.length > 0 ? (
-                filteredFuncionarios.map((func) => (
-                  <tr key={func.id}>
-                    <td>{func.id}</td>
-                    <td>{func.nome}</td>
-                    <td>
-                      {func.EPIs && func.EPIs.length > 0 ? (
-                        <ul>
-                          {func.EPIs.map((epi, index) => (
-                            <li key={index}>
-                              {epi.nome} - {epi.descricao}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <span>Sem EPIs</span>
-                      )}
-                    </td>
-                    <td>
-                      
-                    <button id='editar'
-                        onClick={() => startEditing(func)}
-                        className="edit-button"
-                      >
-                        Editar
-                      </button>
+  {filteredFuncionarios.length > 0 ? (
+    filteredFuncionarios.map((func) => (
+      <tr key={func.id}>
+        <td>{func.id}</td>
+        <td>{func.nome}</td>
+        <td>
+          {func.EPIs && func.EPIs.length > 0 ? (
+            <ul>
+              {func.EPIs.map((epi, index) => (
+                <li key={index}>
+                  {epi.nome} - {epi.descricao}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <span>Sem EPIs</span>
+          )}
+        </td>
+        <td>{func.dataRetirada || 'Não informado'}</td>
+        <td>{func.dataDevolucao || 'Não informado'}</td>
+        <td>
+          <button
+            id="editar"
+            onClick={() => startEditing(func)}
+            className="edit-button"
+          >
+            Editar
+          </button>
+          <button
+            id="deletar"
+            onClick={() => deleteFuncionario(func.id)}
+            className="delete-button"
+          >
+            Excluir
+          </button>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="6">Nenhum funcionário encontrado.</td>
+    </tr>
+  )}
+</tbody>
 
-                      <button id='deletar'
-                        onClick={() => deleteFuncionario(func.id)}
-                        className="delete-button"
-                      >
-                        Excluir
-                      </button>
-                      
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4">Nenhum funcionário encontrado.</td>
-                </tr>
-              )}
-            </tbody>
           </table>
         </div>
       </main>
