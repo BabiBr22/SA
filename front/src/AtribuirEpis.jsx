@@ -1,5 +1,5 @@
 // src/AtribuirEPI.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./AtribuirEPI.css";
 
@@ -8,6 +8,25 @@ const AtribuirEPI = ({ setCurrentPage }) => {
   const [selectedEpi, setSelectedEpi] = useState('');
   const [quantity, setQuantity] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
+  const [epis, setEpis] = useState([]);
+  const [funcionarios, setFuncionarios] = useState([]);
+
+  // Buscar dados do backend
+  const fetchEPIs = async () => {
+    try {
+      const episBanco = await axios.get('http://localhost:4000/epis');
+      const funcionariosBanco = await axios.get('http://localhost:4000/funcionarios/');
+      setEpis(episBanco.data);
+      setFuncionarios(funcionariosBanco.data);
+    } catch (error) {
+      console.error('Erro ao carregar EPIs:', error);
+      alert('Erro ao carregar dados dos EPIs.');
+    }
+  };
+
+  useEffect(() => {
+    fetchEPIs();
+  }, []);
 
   // Função para atribuir EPI
   const handleAssignEPI = async (e) => {
@@ -18,13 +37,13 @@ const AtribuirEPI = ({ setCurrentPage }) => {
       try {
         // Dados a serem enviados na requisição
         const data = {
-          funcionario: selectedFuncionario,
-          epi: selectedEpi,
+          funcionarioId: selectedFuncionario,
+          epiId: selectedEpi,
           quantidade: quantity
         };
 
         // Enviar os dados para a API de atribuição de EPI
-        axios.post('http://localhost:4000/atribuirEpis', {});
+        axios.post('http://localhost:4000/movimentacao', data);
 
 
         // Exibir mensagem de sucesso
@@ -55,26 +74,29 @@ const AtribuirEPI = ({ setCurrentPage }) => {
         </div>
       </header>
 
+
       <div className="content">
         <h1>Atribuir EPI</h1>
+        
+
         <form onSubmit={handleAssignEPI}>
           <div>
             <label>Funcionário:</label>
-            <input
+            {/* <input
               type="text"
               value={selectedFuncionario}
               onChange={(e) => setSelectedFuncionario(e.target.value)}
               placeholder="Nome do Funcionário"
-            />
+            /> */}
+            <select name="" id=""  onChange={(event) => setSelectedFuncionario(event.target.value)}>
+              {funcionarios.map(item => (<option value={item.id}>{item.nome}</option>))}
+            </select>
           </div>
           <div>
             <label>EPI:</label>
-            <input
-              type="text"
-              value={selectedEpi}
-              onChange={(e) => setSelectedEpi(e.target.value)}
-              placeholder="Nome do EPI"
-            />
+            <select name="" id=""  onChange={(event) => setSelectedEpi(event.target.value)}>
+              {epis.map(item => (<option value={item.id}>{item.nome}</option>))}
+            </select>
           </div>
           <div>
             <label>Quantidade:</label>

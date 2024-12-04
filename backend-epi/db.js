@@ -9,7 +9,7 @@ const sequelize = new Sequelize('postgresql://barbara:ue0bEUWx6_siRJo0Sq_44g@pro
       rejectUnauthorized: false // Ajuste de segurança para permitir conexões SSL
     }
   },
-  logging: false, // Desativar logging, se não precisar
+  logging: true, // Desativar logging, se não precisar
 });
 
 module.exports = sequelize;

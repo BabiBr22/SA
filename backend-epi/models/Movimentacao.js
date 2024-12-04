@@ -1,11 +1,11 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../db');
-const Funcionario = require('./Funcionario');
+const sequelize = require('../db.js');
+const Funcionario = require('./Funcionario.js');
 const EPI = require('./Epi.js');
 
-class Retirada extends Model {}
+class Movimentacao extends Model {}
 
-Retirada.init({
+Movimentacao.init({
   funcionarioId: {
     type: DataTypes.INTEGER,
     references: {
@@ -20,13 +20,20 @@ Retirada.init({
       key: 'id',
     },
   },
-  data: {
+  quantidade: {
+    type: DataTypes.INTEGER,
+  },
+  data_retirada: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
   },
+  data_devolucao: {
+    type: DataTypes.DATE,
+  }
 }, {
+  timestamps: false,
   sequelize,
-  modelName: 'Retirada',
+  modelName: 'Movimentacao',
 });
 
-module.exports = Retirada;
+module.exports = Movimentacao;

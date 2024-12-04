@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center; /* Centraliza verticalmente */
   height: 100vh; /* Garante que o conteúdo ocupe toda a altura da tela */
-  padding: 20px;
+  padding: 80px 20px 20px 20px;
   box-sizing: border-box; /* Garante que padding não afete o tamanho total */
 }
 

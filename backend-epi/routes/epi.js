@@ -17,6 +17,6 @@ router.put('/:id', editarEpi);
 router.delete('/:id', deletarEpi);
 
 // Listar todos os EPIs
-router.get('/atribuirEpis', listarEpis);
+router.get('/', listarEpis);
 
 module.exports = router;

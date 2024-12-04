@@ -9,14 +9,13 @@ const HistoricoEPIs = ({ setCurrentPage }) => {
   const [editingEPI, setEditingEPI] = useState(null);
   const [formData, setFormData] = useState({
     nome: '',
-    dataRetirada: '',
-    dataDevolucao: '',
+    categoria: '',
   });
 
   // Buscar dados do backend
   const fetchEPIs = async () => {
     try {
-      const res = await axios.get('http://localhost:4000/epis/atribuirEpis');
+      const res = await axios.get('http://localhost:4000/epis');
       setEpIs(res.data);
     } catch (error) {
       console.error('Erro ao carregar EPIs:', error);
@@ -53,8 +52,7 @@ const HistoricoEPIs = ({ setCurrentPage }) => {
     setEditingEPI(epi);
     setFormData({
       nome: epi.nome,
-      dataRetirada: epi.dataRetirada,
-      dataDevolucao: epi.dataDevolucao,
+      categoria: epi.categoria,
     });
   };
 
@@ -133,7 +131,6 @@ const HistoricoEPIs = ({ setCurrentPage }) => {
             Buscar
           </button>
         </div>
-
         {/* Tabela de EPIs */}
         <div className="table-container">
           <table className="table">
@@ -141,8 +138,8 @@ const HistoricoEPIs = ({ setCurrentPage }) => {
               <tr>
                 <th>ID</th>
                 <th>Nome do EPI</th>
-                <th>Data de Retirada</th>
-                <th>Data de Devolução</th>
+                <th>Categoria</th>
+                {/* <th>Data de Devolução</th> */}
                 <th>Ações</th>
               </tr>
             </thead>
@@ -152,8 +149,8 @@ const HistoricoEPIs = ({ setCurrentPage }) => {
                   <tr key={epi.id}>
                     <td>{epi.id}</td>
                     <td>{epi.nome}</td>
-                    <td>{epi.dataRetirada}</td>
-                    <td>{epi.dataDevolucao}</td>
+                    <td>{epi.categoria}</td>
+                    {/* <td>{epi.dataDevolucao}</td> */}
                     <td>
                       <button id='editar'
                         onClick={() => handleEdit(epi)}
@@ -197,16 +194,16 @@ const HistoricoEPIs = ({ setCurrentPage }) => {
                 />
               </div>
               <div>
-                <label>Data de Retirada:</label>
+                <label>Categoria:</label>
                 <input
-                  type="date"
-                  name="dataRetirada"
-                  value={formData.dataRetirada}
+                  type="text"
+                  name="categoria"
+                  value={formData.categoria}
                   onChange={handleFormChange}
                   required
                 />
               </div>
-              <div>
+              {/* <div>
                 <label>Data de Devolução:</label>
                 <input
                   type="date"
@@ -214,7 +211,7 @@ const HistoricoEPIs = ({ setCurrentPage }) => {
                   value={formData.dataDevolucao}
                   onChange={handleFormChange}
                 />
-              </div>
+              </div> */}
               <div>
                 <button type="submit" className="submit-button">
                   Salvar

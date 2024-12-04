@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './HistoricoFuncionarios.css';
 import axios from 'axios';
 
 const HistoricoFuncionarios = ({ setCurrentPage }) => {
@@ -152,57 +151,43 @@ const HistoricoFuncionarios = ({ setCurrentPage }) => {
               <tr>
                 <th>ID</th>
                 <th>Nome do Funcionário</th>
-                <th>EPIs Retirados</th>
-                <th>Data de Retirada</th>
-                <th>Data de Devolução</th>
+                <th>Cargo</th>
+                <th>Identificação</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-  {filteredFuncionarios.length > 0 ? (
-    filteredFuncionarios.map((func) => (
-      <tr key={func.id}>
-        <td>{func.id}</td>
-        <td>{func.nome}</td>
-        <td>
-          {func.EPIs && func.EPIs.length > 0 ? (
-            <ul>
-              {func.EPIs.map((epi, index) => (
-                <li key={index}>
-                  {epi.nome} - {epi.descricao}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <span>Sem EPIs</span>
-          )}
-        </td>
-        <td>{func.dataRetirada || 'Não informado'}</td>
-        <td>{func.dataDevolucao || 'Não informado'}</td>
-        <td>
-          <button
-            id="editar"
-            onClick={() => startEditing(func)}
-            className="edit-button"
-          >
-            Editar
-          </button>
-          <button
-            id="deletar"
-            onClick={() => deleteFuncionario(func.id)}
-            className="delete-button"
-          >
-            Excluir
-          </button>
-        </td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="6">Nenhum funcionário encontrado.</td>
-    </tr>
-  )}
-</tbody>
+              {filteredFuncionarios.length > 0 ? (
+                filteredFuncionarios.map((func) => (
+                  <tr key={func.id}>
+                    <td>{func.id}</td>
+                    <td>{func.nome}</td>
+                    <td>{func.cargo || 'Não informado'}</td>
+                    <td>{func.identificacao || 'Não informado'}</td>
+                    <td>
+                      <button
+                        id="editar"
+                        onClick={() => startEditing(func)}
+                        className="edit-button"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        id="deletar"
+                        onClick={() => deleteFuncionario(func.id)}
+                        className="delete-button"
+                      >
+                        Excluir
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6">Nenhum funcionário encontrado.</td>
+                </tr>
+              )}
+            </tbody>
 
           </table>
         </div>

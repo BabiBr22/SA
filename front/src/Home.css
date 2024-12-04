@@ -92,10 +92,10 @@ body {
 
 }
 
-.content {
-  padding: 20px; /* Espaço interno para o conteúdo */
-  margin-top: -200px; /* Remova o espaçamento superior se necessário */
-}
+/* .content {
+  padding: 20px; 
+  margin-top: -200px;
+}  */
 
 .cards-container {
   display: flex; /* Usando flexbox para organizar os cartões */

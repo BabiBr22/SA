@@ -64,7 +64,7 @@ exports.deletarFuncionario = async (req, res) => {
       return res.status(404).json({ error: 'Funcionário não encontrado.' }); // Se o funcionário não existir
     }
 
-    await funcionario.destroy(); // Deletar o funcionário
+    await funcionario.destroy({ where: { id }}); // Deletar o funcionário
 
     res.status(200).json({ message: 'Funcionário excluído com sucesso.' }); // Retornar mensagem de sucesso
   } catch (error) {
