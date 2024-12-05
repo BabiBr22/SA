@@ -1,10 +1,11 @@
-// src/HistoricoEPIs.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./Movimentacao.css";
 
 const HistoricoEPI = ({ setCurrentPage }) => {
   const [historico, setHistorico] = useState([]);
+  const [funcionarios, setFuncionarios] = useState([]);
+  const [epis, setEpis] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para controlar a abertura do menu
 
   // Função para buscar o histórico de EPIs do backend
@@ -18,8 +19,32 @@ const HistoricoEPI = ({ setCurrentPage }) => {
     }
   };
 
+  // Função para buscar os dados de funcionários
+  const fetchFuncionarios = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/funcionarios');
+      setFuncionarios(response.data);
+    } catch (error) {
+      console.error('Erro ao carregar os funcionários:', error);
+      alert('Erro ao carregar os funcionários.');
+    }
+  };
+
+  // Função para buscar os dados de EPIs
+  const fetchEpis = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/epis');
+      setEpis(response.data);
+    } catch (error) {
+      console.error('Erro ao carregar os EPIs:', error);
+      alert('Erro ao carregar os EPIs.');
+    }
+  };
+
   useEffect(() => {
     fetchHistorico();
+    fetchFuncionarios();
+    fetchEpis();
   }, []);
 
   const toggleMenu = () => {
@@ -39,6 +64,18 @@ const HistoricoEPI = ({ setCurrentPage }) => {
   };
 
   const groupedHistorico = groupByDate(historico);
+
+  // Função para obter o nome do funcionário pelo ID
+  const getFuncionarioNome = (id) => {
+    const funcionario = funcionarios.find((f) => f.id === id);
+    return funcionario ? funcionario.nome : 'Desconhecido';
+  };
+
+  // Função para obter o nome do EPI pelo ID
+  const getEpiNome = (id) => {
+    const epi = epis.find((e) => e.id === id);
+    return epi ? epi.nome : 'Desconhecido';
+  };
 
   return (
     <div className="app">
@@ -71,7 +108,6 @@ const HistoricoEPI = ({ setCurrentPage }) => {
                 <h2>{date}</h2>
                 <div className="table-container">
                   <table className="historico-table">
-                    
                     <thead>
                       <tr>
                         <th>Data e Hora</th>
@@ -83,8 +119,8 @@ const HistoricoEPI = ({ setCurrentPage }) => {
                       {groupedHistorico[date].map((item, index) => (
                         <tr key={index}>
                           <td>{new Date(item.data_retirada).toLocaleString()}</td>
-                          <td>{item.funcionarioId}</td>
-                          <td>{item.epiId}</td>
+                          <td>{getFuncionarioNome(item.funcionarioId)}</td>
+                          <td>{getEpiNome(item.epiId)}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -97,15 +133,8 @@ const HistoricoEPI = ({ setCurrentPage }) => {
           )}
         </div>
       </div>
-
     </div>
   );
 };
 
 export default HistoricoEPI;
-
-
-
-// {funcionarios.map(item => (
-//   <option key={item.id} value={item.id}>{item.nome}</option>
-// ))}
