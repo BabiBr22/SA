@@ -69,24 +69,26 @@ const HistoricoEPI = ({ setCurrentPage }) => {
             Object.keys(groupedHistorico).map((date, index) => (
               <div key={index} className="historico-date-group">
                 <h2>{date}</h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Data e Hora</th>
-                      <th>Id Funcionário</th>
-                      <th>Id EPI</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {groupedHistorico[date].map((item, index) => (
-                      <tr key={index}>
-                        <td>{new Date(item.data_retirada).toLocaleString()}</td>
-                        <td>{item.funcionarioId}</td>
-                        <td>{item.epiId}</td>
+                <div className="table-container">
+                  <table className="historico-table">
+                    <thead>
+                      <tr>
+                        <th>Data e Hora</th>
+                        <th>Funcionário</th>
+                        <th>EPI</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {groupedHistorico[date].map((item, index) => (
+                        <tr key={index}>
+                          <td>{new Date(item.data_retirada).toLocaleString()}</td>
+                          <td>{item.funcionarioId}</td>
+                          <td>{item.epiId}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             ))
           ) : (
@@ -94,6 +96,7 @@ const HistoricoEPI = ({ setCurrentPage }) => {
           )}
         </div>
       </div>
+
     </div>
   );
 };

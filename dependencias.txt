@@ -19,4 +19,3 @@ npm install cypress --save-dev
 
     para abrir o cypress:   npx cypress open
 
-

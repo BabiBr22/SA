@@ -1,16 +1,35 @@
 import React, { useState } from 'react';
 import './Login.css'; // Estilo
 
-const Login = ({ onLogin }) => { // Recebe a função onLogin como prop
-  const [name, setName] = useState(''); // Estado para o nome
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Lista fixa de usuários
+  const usuariosFixos = [
+    { email: 'usuario1@empresa.com', senha: 'senha1' },
+    { email: 'usuario2@empresa.com', senha: 'senha2' },
+    { email: 'usuario3@empresa.com', senha: 'senha3' },
+    { email: 'usuario4@empresa.com', senha: 'senha4' },
+    { email: 'usuario5@empresa.com', senha: 'senha5' },
+  ];
+
   const handleLogin = (e) => {
     e.preventDefault();
-    // Lógica de autenticação aqui
-    console.log('Login', {email, password });
-    onLogin(); // Chama a função onLogin ao fazer login
+
+    // Verifica se o email e senha existem na lista de usuários fixos
+    const usuarioValido = usuariosFixos.find(
+      (usuario) => usuario.email === email && usuario.senha === password
+    );
+
+    if (!usuarioValido) {
+      alert('Email ou senha inválidos');
+      return;
+    }
+
+    // Caso o login seja bem-sucedido
+    alert('Login realizado com sucesso!');
+    onLogin(); // Chama a função de login passada como prop
   };
 
   return (
