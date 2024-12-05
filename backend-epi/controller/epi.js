@@ -13,7 +13,7 @@ exports.criarNovoEpi = async (req, res) => {
 // Editar um EPI
 exports.editarEpi = async (req, res) => {
   try {
-    const id = req.query.id
+    const id = req.params.id
     const epi = await EPI.findByPk(id); // Agora estamos usando 'EPI'
     if (!epi) return res.status(404).json({ error: 'EPI não encontrado' });
     await epi.update(req.body, { where: { id }});

@@ -20,7 +20,7 @@ const RegistroEPIs = ({ setCurrentPage }) => {
 
       const data = {
         nome: epiName.trim(),
-        codigo: epiCode.trim(),
+        categoria: epiCode.trim(),
         quantidade: quantity
       }
 
