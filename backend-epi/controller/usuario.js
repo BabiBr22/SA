@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 // Lista de usuários fixos
 const usuariosFixos = [
   { email: 'usuario1@empresa.com', senha: 'senha1' },
@@ -8,18 +10,26 @@ const usuariosFixos = [
 ];
 
 // Rota de login
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
   const { email, senha } = req.body;
 
-  // Verifica se o email e a senha correspondem a um usuário fixo
-  const usuarioValido = usuariosFixos.find(
-    (usuario) => usuario.email === email && usuario.senha === senha
-  );
+  try {
+    // Busca o usuário na lista de usuários fixos
+    const usuarioFixo = usuariosFixos.find((usuario) => usuario.email === email);
 
-  if (!usuarioValido) {
-    return res.status(401).json({ error: 'Email ou senha inválidos' });
+    if (!usuarioFixo) {
+      return res.status(401).json({ error: 'Usuário não permitido' });
+    }
+
+    // Verifica a senha
+    if (senha !== usuarioFixo.senha) {
+      return res.status(401).json({ error: 'Senha incorreta' });
+    }
+
+    // Resposta de sucesso ao login
+    res.status(200).json({ message: 'Login realizado com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao realizar login:', error);
+    res.status(500).json({ error: 'Erro ao realizar login' });
   }
-
-  // Resposta de sucesso ao login
-  res.status(200).json({ message: 'Login realizado com sucesso!' });
 };

@@ -30,3 +30,14 @@ describe('Gestão de EPIs', () => {
     });
   });
 });
+
+
+describe('Testes de EPIs', () => {
+  it('Deve carregar a lista de EPIs corretamente', () => {
+    cy.request('GET', 'http://localhost:4000/epis').then((response) => {
+      expect(response.status).to.eq(200); // Verifica se a resposta tem status 200
+      expect(response.body).to.be.an('array'); // Verifica se a resposta é um array
+      expect(response.body).to.have.length.greaterThan(0); // Verifica se há pelo menos um EPI
+    });
+  });
+});

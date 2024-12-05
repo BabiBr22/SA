@@ -1,66 +1,89 @@
-/* src/Sidebar.css */
+/* Estilo para a barra lateral */
 .sidebar {
-    width: 250px;
-    position: fixed;
-    top: 0;
-    left: -250px;
-    height: 100%;
-    background-color: #333;
-    overflow-x: hidden;
-    transition: left 0.3s;
-    z-index: 1000;
-  }
-  
-  .sidebar.open {
-    left: 0;
-  }
-  
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    padding: 15px;
-    cursor: pointer;
-    color: white;
-  }
-  
-  .sidebar li:hover {
-    background-color: #575757;
-  }
-  
-  .menu-toggle {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1100;
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-  }
-  
- /* src/Movimentacao.css */
-/* src/Movimentacao.css */
-.historico-container {
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  min-height: calc(100vh - 40px); /* Garante centralização vertical */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centraliza horizontalmente */
-  justify-content: center; /* Centraliza verticalmente */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #333;
+  transition: left 0.3s;
+  padding-top: 20px;
 }
 
-.historico-date-group {
-  width: 90%; /* Ajustado para ocupar 90% da largura */
-  max-width: 1200px; /* Aumentado o limite máximo de largura */
-  margin: 20px 0;
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px 15px;
+  text-align: left;
+  color: white;
+  cursor: pointer;
+}
+
+.sidebar ul li:hover {
+  background-color: #575757;
+}
+
+/* Estilo para o botão de menu */
+.menu-toggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.menu-toggle:hover {
+  background-color: #575757;
+}
+
+/* Estilos para o conteúdo */
+.historico-container {
+  margin-left: 260px;
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+.sidebar.open + .historico-container {
+  margin-left: 0;
+}
+
+/* Estilos para a tabela */
+.historico-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.historico-table th,
+.historico-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.historico-table th {
+  background-color: #f2f2f2;
+}
+
+.historico-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.historico-date-group h2 {
+  margin-top: 20px;
+  font-size: 20px;
 }
 
 .table-container {
@@ -68,48 +91,14 @@
   margin-top: 10px;
 }
 
-.historico-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.historico-table th,
-.historico-table td {
-  text-align: left;
-  padding: 12px;
-  border: 1px solid #ddd;
-}
-
-.historico-table th {
-  background-color: #333;
-  color: white;
-  font-weight: bold;
-}
-
-.historico-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.historico-table tr:hover {
-  background-color: #ddd;
-}
-
-.historico-date-group h2 {
-  text-align: center;
-  margin-top: 20px;
-  border-top: 2px solid #ddd;
-  padding-top: 10px;
-  font-size: 1.2rem;
-  color: #333;
-}
-
-.historico-content p {
-  font-size: 1rem;
-  color: #666;
-  margin-top: 20px;
+/* Estilos para o cabeçalho */
+.header {
+  background-color: #f1f1f1;
+  padding: 10px 20px;
   text-align: center;
 }
+
+.header h1 {
+  margin: 0;
+}
+

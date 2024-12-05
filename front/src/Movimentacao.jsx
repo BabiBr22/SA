@@ -5,9 +5,8 @@ import "./Movimentacao.css";
 
 const HistoricoEPI = ({ setCurrentPage }) => {
   const [historico, setHistorico] = useState([]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para controlar a abertura do menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Função para buscar o histórico de EPIs do backend
   const fetchHistorico = async () => {
     try {
       const response = await axios.get('http://localhost:4000/movimentacao');
@@ -26,7 +25,6 @@ const HistoricoEPI = ({ setCurrentPage }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Função para agrupar o histórico por data
   const groupByDate = (historico) => {
     return historico.reduce((groups, item) => {
       const date = new Date(item.dataHora).toLocaleDateString();
@@ -38,16 +36,30 @@ const HistoricoEPI = ({ setCurrentPage }) => {
     }, {});
   };
 
+  const handleDevolucao = async (itemId) => {
+    try {
+      // Atualiza o status no banco de dados
+      await axios.put(`http://localhost:4000/movimentacao/${itemId}`, { status: 'Devolvido' });
+      // Atualiza o estado local
+      setHistorico((prevHistorico) =>
+        prevHistorico.map((item) =>
+          item.id === itemId ? { ...item, status: 'Devolvido' } : item
+        )
+      );
+    } catch (error) {
+      console.error('Erro ao atualizar o status:', error);
+      alert('Erro ao atualizar o status.');
+    }
+  };
+
   const groupedHistorico = groupByDate(historico);
 
   return (
     <div className="app">
-      {/* Botão para abrir e fechar o menu */}
       <button className="menu-toggle" onClick={toggleMenu}>
         {isMenuOpen ? 'Close' : 'Open'} Menu
       </button>
 
-      {/* Menu Lateral */}
       <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
         <ul>
           <li onClick={() => setCurrentPage('home')}>Home</li>
@@ -59,7 +71,6 @@ const HistoricoEPI = ({ setCurrentPage }) => {
         </ul>
       </div>
 
-      {/* Conteúdo principal */}
       <div className="historico-container">
         <header className="header">
           <h1>Histórico de Atribuição de EPIs</h1>
@@ -76,6 +87,8 @@ const HistoricoEPI = ({ setCurrentPage }) => {
                         <th>Data e Hora</th>
                         <th>Funcionário</th>
                         <th>EPI</th>
+                        <th>Ações</th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -84,6 +97,14 @@ const HistoricoEPI = ({ setCurrentPage }) => {
                           <td>{new Date(item.data_retirada).toLocaleString()}</td>
                           <td>{item.funcionarioId}</td>
                           <td>{item.epiId}</td>
+                          <td>
+                            <button onClick={() => handleDevolucao(item.id)}>
+                              Devolução
+                            </button>
+                          </td>
+                          <td>
+                            {item.status ? item.status : 'Pendente'}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -96,7 +117,6 @@ const HistoricoEPI = ({ setCurrentPage }) => {
           )}
         </div>
       </div>
-
     </div>
   );
 };
