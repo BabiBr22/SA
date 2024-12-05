@@ -34,6 +34,8 @@ app.get('/', (req, res) => {
 //     console.error('Erro ao sincronizar o banco de dados:', error);
 //   });
 
+
+
   app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
   });

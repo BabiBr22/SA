@@ -2,15 +2,16 @@
 import React, { useState } from 'react';
 import Login from './Login.jsx';
 import Home from './Home.jsx';
-import HistoricoEPIs from './HistoricoEPIs';
-import HistoricoFuncionarios from './HistoricoFuncionarios'; // Importe o novo componente
-import RegistroEPIs from './RegistroEPIs'; // Importe o componente de Registro de EPIs
-import RegistroFuncionarios from './RegistroFuncionarios'; // Importe o componente de Registro de Funcionários
-import AtribuirEPI from './AtribuirEpis'; // Corrigido para 'AtribuirEPI' com 'E' maiúsculo
+import HistoricoEPIs from './HistoricoEPIs'; // Componente de histórico de movimentação de EPIs
+import HistoricoFuncionarios from './HistoricoFuncionarios';
+import RegistroEPIs from './RegistroEPIs';
+import RegistroFuncionarios from './RegistroFuncionarios';
+import AtribuirEPI from './AtribuirEpis';
+import Movimentacao from './Movimentacao.jsx';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentPage, setCurrentPage] = useState('home'); // Estado para a página atual
+  const [currentPage, setCurrentPage] = useState('home');
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -27,9 +28,11 @@ const App = () => {
       case 'registroEPIs':
         return <RegistroEPIs setCurrentPage={setCurrentPage} />;
       case 'registroFuncionarios':
-        return <RegistroFuncionarios setCurrentPage={setCurrentPage} />; 
-      case 'atribuirEPI': // Corrigido para 'atribuirEPI'
-        return <AtribuirEPI setCurrentPage={setCurrentPage} />; 
+        return <RegistroFuncionarios setCurrentPage={setCurrentPage} />;
+      case 'atribuirEPI':
+        return <AtribuirEPI setCurrentPage={setCurrentPage} />;
+      case 'movimentacao':
+        return <Movimentacao setCurrentPage={setCurrentPage} />;
       default:
         return <Home setCurrentPage={setCurrentPage} />;
     }

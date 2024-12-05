@@ -104,15 +104,12 @@ const HistoricoEPIs = ({ setCurrentPage }) => {
       {/* Menu Lateral */}
       <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
         <ul>
-          <li onClick={() => setCurrentPage('home')}>Home</li>
+        <li onClick={() => setCurrentPage('home')}>Home</li>
           <li onClick={() => setCurrentPage('historico')}>Histórico de EPIs</li>
-          <li onClick={() => setCurrentPage('historicoFuncionarios')}>
-            Histórico de Funcionários
-          </li>
+          <li onClick={() => setCurrentPage('historicoFuncionarios')}>Histórico de Funcionários</li>
           <li onClick={() => setCurrentPage('registroEPIs')}>Registro de EPIs</li>
-          <li onClick={() => setCurrentPage('registroFuncionarios')}>
-            Registro de Funcionários
-          </li>
+          <li onClick={() => setCurrentPage('registroFuncionarios')}>Registro de Funcionários</li>
+          <li onClick={() => setCurrentPage('atribuirEPI')}>Atribuir EPI</li>
         </ul>
       </div>
 

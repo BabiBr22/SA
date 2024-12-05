@@ -39,6 +39,7 @@ const Home = ({ setCurrentPage }) => {
             <li onClick={() => handleMenuItemClick('registroEPIs')}>Registro de EPIs</li>
             <li onClick={() => handleMenuItemClick('registroFuncionarios')}>Registro de Funcionários</li>
             <li onClick={() => handleMenuItemClick('atribuirEPI')}>Atribuir EPI</li> {/* Nova opção no menu */}
+            <li onClick={() => handleMenuItemClick('movimentacao')}>Historico de Movimentação</li> {/* Nova opção no menu */}
           </ul>
         </div>
       </div>
@@ -64,6 +65,9 @@ const Home = ({ setCurrentPage }) => {
           </div>
           <div className="card" onClick={() => handleMenuItemClick('atribuirEPI')}>
             <h3>Atribuir EPI</h3> {/* Cartão para a nova página */}
+          </div>
+          <div className="card" onClick={() => handleMenuItemClick('movimentacao')}>
+            <h3>Historico de  Mivimentação</h3> {/* Cartão para a nova página */}
           </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-// src/AtribuirEPI.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./AtribuirEPI.css";
@@ -42,12 +41,15 @@ const AtribuirEPI = ({ setCurrentPage }) => {
           quantidade: quantity
         };
 
-        // Enviar os dados para a API de atribuição de EPI
-        axios.post('http://localhost:4000/movimentacao', data);
+        // Enviar os dados para a API de atribuição de EPI e aguardar a resposta
+        const response = await axios.post('http://localhost:4000/movimentacao', data);
 
-
-        // Exibir mensagem de sucesso
-        setResponseMessage('EPI atribuído com sucesso!');
+        // Verificar a resposta e definir a mensagem de sucesso
+        if (response.status === 201) { // ou outro status que indique sucesso
+          setResponseMessage('EPI atribuído com sucesso!');
+        } else {
+          setResponseMessage('Erro ao atribuir EPI.');
+        }
       } catch (error) {
         // Exibir mensagem de erro em caso de falha
         setResponseMessage('Erro ao atribuir EPI.');
@@ -74,39 +76,29 @@ const AtribuirEPI = ({ setCurrentPage }) => {
         </div>
       </header>
 
-
       <div className="content">
         <h1>Atribuir EPI</h1>
-        
 
         <form onSubmit={handleAssignEPI}>
           <div>
             <label>Funcionário:</label>
-            {/* <input
-              type="text"
-              value={selectedFuncionario}
-              onChange={(e) => setSelectedFuncionario(e.target.value)}
-              placeholder="Nome do Funcionário"
-            /> */}
-            <select name="" id=""  onChange={(event) => setSelectedFuncionario(event.target.value)}>
-              {funcionarios.map(item => (<option value={item.id}>{item.nome}</option>))}
+            <select onChange={(event) => setSelectedFuncionario(event.target.value)} value={selectedFuncionario}>
+              <option value="">Selecione um funcionário</option>
+              {funcionarios.map(item => (
+                <option key={item.id} value={item.id}>{item.nome}</option>
+              ))}
             </select>
           </div>
           <div>
             <label>EPI:</label>
-            <select name="" id=""  onChange={(event) => setSelectedEpi(event.target.value)}>
-              {epis.map(item => (<option value={item.id}>{item.nome}</option>))}
+            <select onChange={(event) => setSelectedEpi(event.target.value)} value={selectedEpi}>
+              <option value="">Selecione um EPI</option>
+              {epis.map(item => (
+                <option key={item.id} value={item.id}>{item.nome}</option>
+              ))}
             </select>
           </div>
-          <div>
-            <label>Quantidade:</label>
-            <input
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              placeholder="Quantidade de EPIs"
-            />
-          </div>
+          
           <button type="submit">Atribuir EPI</button>
         </form>
         {responseMessage && <p>{responseMessage}</p>}

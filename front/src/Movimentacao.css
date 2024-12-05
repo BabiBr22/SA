@@ -1,0 +1,65 @@
+/* src/Sidebar.css */
+.sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100%;
+    background-color: #333;
+    overflow-x: hidden;
+    transition: left 0.3s;
+    z-index: 1000;
+  }
+  
+  .sidebar.open {
+    left: 0;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    padding: 15px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .sidebar li:hover {
+    background-color: #575757;
+  }
+  
+  .menu-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+  
+  .historico-container {
+    margin-left: 250px;
+    padding: 20px;
+    transition: margin-left 0.3s;
+  }
+  
+  .sidebar.open + .historico-container {
+    margin-left: 0;
+  }
+  
+
+  .historico-date-group {
+    margin-bottom: 20px;
+  }
+  
+  .historico-date-group h2 {
+    margin-top: 20px;
+    border-top: 2px solid #ccc;
+    padding-top: 10px;
+  }
+  
