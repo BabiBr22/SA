@@ -1,0 +1,38 @@
+/* src/AtribuirEPI.css */
+/* .content {
+    padding: 20px;
+  } */
+  
+  .form-container {
+    background-color: #f0f0f0; /* Cor de fundo cinza */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .input-atribuir {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .atribuir-button {
+    background-color:  orange;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .atribuir-button:hover {
+    background-color:  orange;
+  }
+  

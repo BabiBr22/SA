@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  
+}
+
+.header {
+  width: 100%;
+  height: 60px; /* Altura do header */
+  background-color: black; /* Cor do header */
+  display: flex;
+  align-items: center; /* Centraliza verticalmente */
+  padding: 0 20px; /* Adiciona espaçamento nas laterais */
+  position: fixed; /* Faz o header ficar fixo na parte superior */
+  top: 0; /* Fica sempre no topo */
+  left: 0; /* Garante que comece na borda esquerda */
+  z-index: 1000; /* Garante que o header fique acima de outros elementos */
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza o conteúdo na horizontal */
+  position: relative;
+  margin-top: 60px; /* Ajuste do espaço abaixo do header */
+}
+
+.menu-icon {
+  font-size: 24px; /* Tamanho do ícone do menu */
+  color: white; /* Cor do ícone */
+  cursor: pointer; /* Cursor em forma de ponteiro */
+}
+
+.sidebar {
+  position: fixed; /* Mantém a sidebar fixa na tela */
+  top: 60px; /* Abaixo do header */
+  left: -250px; /* Escondido inicialmente */
+  width: 250px; /* Largura da sidebar */
+  height: calc(100% - 60px); /* Altura da sidebar (100% da tela menos a altura do header) */
+  background-color: orange; /* Cor da sidebar */
+  transition: left 0.3s ease; /* Animação para abrir e fechar */
+  z-index: 999; /* Garante que a sidebar fique acima do conteúdo */
+}
+
+.sidebar.open {
+  left: 0; /* Mova para a posição visível */
+}
+
+.sidebar-content {
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none; /* Remove os marcadores da lista */
+}
+
+.sidebar li {
+  margin-bottom: 10px; /* Espaço entre os itens da lista */
+  color: black; /* Cor do texto dos itens do menu */
+  background-color: orange; /* Cor de fundo padrão para os itens do menu */
+  cursor: pointer; /* Cursor em forma de ponteiro ao passar o mouse */
+  padding: 10px; /* Espaçamento interno para aumentar a área clicável */
+  transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+
+.sidebar li:hover {
+  background-color: darkorange; /* Cor de fundo ao passar o mouse sobre os itens do menu */
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px; /* Ajuste a altura da imagem para que ela não suba */
+  overflow: hidden; /* Esconde qualquer parte da imagem que ultrapasse o contêiner */
+  margin-top: 120px; /* Pequeno espaço entre o header e a imagem */
+
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem cubra todo o contêiner */
+  content: url('home.png');
+
+}
+
+/* .content {
+  padding: 20px; 
+  margin-top: -200px;
+}  */
+
+.cards-container {
+  display: flex; /* Usando flexbox para organizar os cartões */
+  justify-content: center; /* Centraliza os cartões horizontalmente */
+  flex-wrap: wrap; /* Permite que os cartões quebrem para a linha de baixo se necessário */
+  gap: 20px; /* Espaço entre os cartões */
+  margin-top: 10px; /* Espaço acima dos cartões */
+}
+
+
+.card {
+  background-color: rgba(167, 167, 167, 0.562);
+  border: 1px solid #050505;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  min-width: 220px;
+  max-width: 220px;
+  height: 100px;
+  cursor: pointer; /* Adiciona o cursor de ponteiro */
+  transition: transform 0.3s, box-shadow 0.3s; /* Adiciona animação ao passar o mouse */
+}
+
+.profile-container {
+  display: flex;
+  align-items: center; /* Alinha o ícone do perfil e o nome verticalmente */
+  margin-left: auto; /* Empurra para a direita */
+}
+
+.profile-picture {
+  width: 40px; /* Largura do círculo do perfil */
+  height: 40px; /* Altura do círculo do perfil */
+  border-radius: 50%; /* Deixa a imagem em formato de círculo */
+  margin-right: 8px; /* Espaço entre a imagem e o nome */
+}
+
+.username {
+  color: white; /* Cor do texto do nome do usuário */
+  font-size: 16px; /* Tamanho da fonte do nome */
+}
+
+
+
+.card:hover {
+  transform: scale(1.05); /* Aumenta ligeiramente o tamanho no hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Intensifica a sombra no hover */
+}

@@ -1,0 +1,51 @@
+/* src/RegistroFuncionarios.css */
+/* .content {
+    padding: 20px;
+  } */
+  
+  .form-container {
+    background-color: #f0f0f0; /* Cor de fundo cinza */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .employee-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .register-button {
+    background-color:  orange;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .register-button:hover {
+    background-color:  orange;
+  }
+  
+  .success-message {
+    background-color:  orange;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  
